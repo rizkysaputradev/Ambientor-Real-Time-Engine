@@ -3,7 +3,7 @@ name = "ambientor-ffi"
 version = "0.1.0"
 edition = "2021"
 license = "MIT"
-repository = "https://github.com/rizkysaputradev/ambientor-real-time-engine"
+repository = "https://github.com/rizkysaputradev/Ambientor-Real-Time-Engine"
 description = "C ABI wrapper for Ambientor engine."
 
 [lib]
