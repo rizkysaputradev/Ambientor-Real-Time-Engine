@@ -1,0 +1,29 @@
+[package]
+name = "ambientor-ffi"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/rizkysaputradev/ambientor-real-time-engine"
+description = "C ABI wrapper for Ambientor engine."
+
+[lib]
+# Shared + static so C/C++ (and other langs) can link either way.
+crate-type = ["cdylib", "staticlib"]
+path = "src/lib.rs"
+
+[features]
+# Forward tuning features to the engine/core:
+fast-math = ["ambientor-engine/fast-math"]
+simd = ["ambientor-engine/simd"]
+
+[dependencies]
+ambientor-engine = { path = "../ambientor-engine" }
+cfg-if = { workspace = true }
+
+[build-dependencies]
+# Optional: uncomment once we wire a build.rs to auto-generate headers with cbindgen.
+# cbindgen = "0.26"
+
+[package.metadata.docs.rs]
+no-default-features = true
+

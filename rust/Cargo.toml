@@ -1,0 +1,60 @@
+[workspace]
+members = [
+  "ambientor-core",
+  "ambientor-engine",
+  "ambientor-cli",
+  "ambientor-ffi",
+]
+resolver = "2"
+
+[workspace.package]
+edition      = "2021"
+version      = "0.1.0"
+license      = "MIT"
+repository   = "https://github.com/rizkysaputradev/ambientor-real-time-engine"
+homepage     = "https://github.com/rizkysaputradev/ambientor-real-time-engine"
+rust-version = "1.77"
+
+[profile.dev]
+opt-level = 1
+debug = 1
+overflow-checks = true
+lto = false
+incremental = true
+
+[profile.release]
+opt-level = 3
+lto = "fat"
+codegen-units = 1
+strip = "symbols"
+debug = 0
+panic = "abort"
+
+[profile.bench]
+inherits = "release"
+debug = 1
+
+# NOTE: No `optional = true` entries here. Workspace just pins versions.
+[workspace.dependencies]
+# Core utils
+num-traits = "0.2.19"
+cfg-if     = "1.0.0"
+
+# Math backends (crates will decide if they are optional via features)
+libm       = "0.2.8"
+micromath  = "2.1.0"
+
+# SIMD helpers (again, optionality per-crate)
+safe_arch  = "0.7.1"
+wide       = "0.7.22"
+
+# Audio / engine layer
+cpal       = "0.15.3"
+rand       = "0.8.5"
+
+# Python bindings (used in python crate only)
+pyo3       = "0.22.6"
+maturin    = "1.7.4"
+
+# Bench & testing
+criterion  = "0.5.1"

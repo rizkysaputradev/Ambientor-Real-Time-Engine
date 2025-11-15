@@ -1,0 +1,20 @@
+[package]
+name = "ambientor-cli"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+repository = "https://github.com/rizkysaputradev/ambientor-real-time-engine"
+description = "CLI player/renderer for Ambientor."
+
+# Uses src/main.rs by default
+[features]
+# Let the CLI simply pass-through the engine’s tuning toggles:
+fast-math = ["ambientor-engine/fast-math"]
+simd = ["ambientor-engine/simd"]
+
+[dependencies]
+ambientor-engine = { path = "../ambientor-engine" }
+# Audio backend is used indirectly via engine, but we keep it here to allow
+# CLI-only tools later if needed.
+cpal = { workspace = true }
+cfg-if = { workspace = true }

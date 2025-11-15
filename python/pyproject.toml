@@ -1,0 +1,48 @@
+[build-system]
+requires = ["maturin>=1.7,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "ambientor-py"
+version = "0.1.0"
+description = "Python bindings for the Ambientor real-time ambient sound engine."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+
+authors = [
+  { name = "Rizky Johan Saputra" }
+]
+
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Rust",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Operating System :: MacOS :: MacOS X",
+  "Topic :: Multimedia :: Sound/Audio :: Sound Synthesis",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+dependencies = []
+
+[project.urls]
+"Homepage" = "https://github.com/rizkysaputradev/ambientor-real-time-engine"
+"Source"   = "https://github.com/rizkysaputradev/ambientor-real-time-engine"
+"Tracker"  = "https://github.com/rizkysaputradev/ambientor-real-time-engine/issues"
+
+[tool.maturin]
+# We use pyo3-based bindings
+bindings = "pyo3"
+
+# Mixed Python/Rust project:
+# - Rust extension: built from `src/lib.rs`
+# - Python package: `ambientor_py/`
+python-source = "."
+
+# The compiled extension will be imported as `ambientor_py._ambientor`
+# and re-exported from `ambientor_py/__init__.py`.
+module-name = "ambientor_py._ambientor"
+
+# If you later add Cargo features (e.g. "fast-math"), you can pass them here:
+# features = ["fast-math"]

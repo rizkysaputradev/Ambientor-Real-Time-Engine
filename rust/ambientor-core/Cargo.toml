@@ -1,0 +1,64 @@
+[package]
+name = "ambientor-core"
+edition = "2021"
+version = "0.1.0"
+license = "MIT"
+repository = "https://github.com/rizkysaputradev/ambientor-real-time-engine"
+description = "DSP primitives (no_std-ready) for the Ambientor procedural ambient engine."
+keywords = ["audio", "dsp", "synthesis", "ambient", "no_std"]
+categories = ["multimedia::audio", "embedded", "no-std"]
+rust-version = "1.77"
+
+[lib]
+crate-type = ["rlib"]
+path = "src/lib.rs"
+
+[features]
+# Default: use std on hosted targets.
+default = ["std"]
+
+# Use the standard library (hosted targets).
+std = []
+
+# Pure no_std mode; pulls in libm for missing math intrinsics.
+no-std = ["dep:libm"]
+
+# Approximate/fast math gates (you’ll use these in code).
+fast-math = []
+
+# Portable SIMD helpers (gate call sites in code).
+simd = ["dep:safe_arch", "dep:wide"]
+
+# Use micromath instead of libm for some targets (choose one in builds).
+micromath = ["dep:micromath"]
+
+[dependencies]
+# Pinned via workspace
+num-traits = { workspace = true }
+cfg-if     = { workspace = true }
+
+# Optional math backends
+libm       = { workspace = true, optional = true }
+micromath  = { workspace = true, optional = true }
+
+# SIMD helpers
+safe_arch  = { workspace = true, optional = true }
+wide       = { workspace = true, optional = true }
+
+[dev-dependencies]
+# Dev deps are never optional; Cargo includes them for tests/benches automatically.
+criterion  = { workspace = true }
+
+[package.metadata.docs.rs]
+all-features = true
+rustc-args = ["--cfg", "docsrs"]
+
+[lints.rust]
+unsafe_code = "allow"
+
+[lints.clippy]
+perf = "warn"
+pedantic = "warn"
+
+[build-dependencies]
+cc = "1.0"
